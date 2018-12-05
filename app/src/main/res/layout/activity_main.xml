@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:card_view="http://schemas.android.com/tools"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data class="MainActivityBinding">
+
+        <variable
+            name="flightInfoModel"
+            type="com.soulkitchen.serifenuruysal.flightsearchapp.viewmodel.FlightInfoModel" />
+
+        <variable
+            name="viewModel"
+            type="com.soulkitchen.serifenuruysal.flightsearchapp.viewmodel.MainViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/space_standart"
+        tools:context=".MainActivity">
+
+        <ProgressBar
+            android:id="@+id/progressBarAbove"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="10dp"
+            android:indeterminate="true"
+            android:visibility="@{viewModel.isLoading}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/cardView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            android:visibility="@{viewModel.isInfoVisible}"
+            app:layout_constraintEnd_toStartOf="@+id/progressBarAbove"
+            app:layout_constraintStart_toEndOf="@+id/progressBarAbove"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:background="@color/colorPrimary"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+
+                <TextView
+                    android:id="@+id/tvDateInfo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@android:color/white"
+                    android:text="@{flightInfoModel.DateInfo }"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvSourceDestination"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@android:color/white"
+                    android:text="@{flightInfoModel.sourceDestination }"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvAdultCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@android:color/white"
+                    android:text="@{flightInfoModel.adultCount }"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/tvFlightType"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:textColor="@android:color/white"
+                    android:text="@{flightInfoModel.flightType }"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+
+        </androidx.cardview.widget.CardView>
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvResponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@color/cardview_light_background"
+            android:nestedScrollingEnabled="true"
+            android:setAdapter="@{viewModel.getAdapter()}"
+            android:setLayoutManager="@{viewModel.layoutManager}"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/cardView" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
